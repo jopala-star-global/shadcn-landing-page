@@ -108,6 +108,13 @@
   --ring: 20.5 90.2% 48.2%;
 }
 
+/* Replicate Tailwind v3 container config: centered, padded, max-width 1400px at 2xl */
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  max-width: 1400px;
+}
+
 html {
   scroll-behavior: smooth;
 }
