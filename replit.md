@@ -1,44 +1,52 @@
-# [Project name]
+# Shadcn Landing Page
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A beautiful, responsive landing page built with shadcn/ui components, featuring dark/light mode toggle, animated sections, testimonials, pricing, team, FAQ, and a contact form.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- Frontend: workflow `artifacts/shadcn-landing-page: web` — Vite dev server
+- `pnpm --filter @workspace/api-server run dev` — run the API server (not used by the landing page)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- Frontend: React 19 + Vite + Tailwind CSS v4 + shadcn/ui
+- Routing: wouter (single-page app, no routes needed)
+- Theme: next-themes (light/dark/system)
+- UI components: Radix UI primitives + class-variance-authority
+- Icons: lucide-react
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/shadcn-landing-page/src/App.tsx` — root component, assembles all sections
+- `artifacts/shadcn-landing-page/src/index.css` — CSS variables / orange theme (light + dark)
+- `artifacts/shadcn-landing-page/src/components/layout/` — Navbar, ThemeProvider, ToggleTheme
+- `artifacts/shadcn-landing-page/src/components/layout/sections/` — all page sections
+- `artifacts/shadcn-landing-page/src/components/ui/` — shadcn UI components
+- `artifacts/shadcn-landing-page/public/` — hero images (hero-image-light.jpeg, hero-image-dark.jpeg)
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- Pure frontend, no backend — the api-server artifact exists in the scaffold but is unused by this app.
+- Single-page design: all sections are rendered on one page, no client-side routing needed.
+- Theme uses CSS custom properties (HSL variables) consumed by Tailwind v4 `@theme inline` block.
+- lucide-react `LineChart` icon was renamed in newer versions — replaced with `TrendingUp`.
+- The Icon component has a null guard to prevent crashes from unknown icon names.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
-
-## User preferences
-
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- Full marketing landing page with: hero, sponsors marquee, benefits, features, services, testimonials, team grid, community CTA, pricing cards, contact form, FAQ accordion, and footer.
+- Dark/light/system theme toggle in the navbar.
+- Contact form with react-hook-form + Zod validation, sends via mailto link.
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Do NOT use `next/link`, `next/image`, or any `next/*` imports — this is Vite+React, not Next.js.
+- `next-themes` is fine (it's framework-agnostic), but `next/font` is NOT available — use Google Fonts via CSS or `<link>`.
+- The lucide-react version here may not have older icon names (e.g. `LineChart` → `TrendingUp`). Use the Icon component's null guard.
+- Tailwind v4 uses `@import "tailwindcss"` not `@tailwind base/components/utilities`.
 
 ## Pointers
 

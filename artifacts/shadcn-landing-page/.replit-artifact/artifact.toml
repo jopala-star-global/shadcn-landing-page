@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Shadcn Landing Page"
+version = "1.0.0"
+id = "artifacts/shadcn-landing-page"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18734
+
+[services.development]
+run = "pnpm --filter @workspace/shadcn-landing-page run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/shadcn-landing-page", "run", "build" ]
+publicDir = "artifacts/shadcn-landing-page/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18734"
+BASE_PATH = "/"
